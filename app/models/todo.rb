@@ -4,12 +4,11 @@ class Todo < Model
   attribute :title
   attribute :completed
 
-  def destroy
-    trigger :destroy
+  def self.active
+    select { |todo| !todo.completed }
   end
 
-  def toggle
-    @completed = !@completed
-    # save
+  def self.completed
+    select { |todo| todo.completed }
   end
 end

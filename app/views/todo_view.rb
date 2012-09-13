@@ -10,36 +10,38 @@ class TodoView < View
   end
 
   on :keypress, '.edit' do |e|
-    self.close if e.which == 13
+    finish_editing if e.which == 13
+  end
+
+  on :blur, '.edit' do
+    finish_editing
   end
 
   on :click, '.destroy' do
     @todo.destroy
   end
 
+  on :click, '.toggle' do
+    puts "toggling"
+    @todo.update_attribute :completed, !@todo.completed
+    puts @todo.completed
+  end
+
   def initialize(todo)
     super
     @todo = todo
-    @todo.on(:change) { puts 'todoview change' }
+    @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
-    @todo.on(:visible) { puts 'todoview visible' }
   end
 
   def clear
     @todo.destroy
   end
 
-  def close
+  def finish_editing
     value = @input.value.strip
-
-    if value.empty?
-      clear
-    else
-      @todo.title = value
-      save
-    end
-
     @element.remove_class 'editing'
+    value.empty? ? clear : @todo.update_attribute(:title, value)
   end
 
   def remove
@@ -49,7 +51,7 @@ class TodoView < View
   def render
     @element.html = <<-HTML
       <div class="view">
-        <input class="toggle" type="checkbox" #{@todo.completed && '"checked"'}>
+        <input class="toggle" type="checkbox" #{@todo.completed && 'checked'}>
         <label>#{@todo.title}</label>
         <button class="destroy"></button>
       </div>

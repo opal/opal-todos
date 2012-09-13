@@ -1,18 +1,28 @@
-class TodoView
-  ENTER_KEY = 13
+require 'vendor/view'
+
+class TodoView < View
 
   attr_reader :element
 
+  on :dblclick, 'label' do
+    @element.add_class 'editing'
+    @input.focus
+  end
+
+  on :keypress, '.edit' do |e|
+    self.close if e.which == 13
+  end
+
+  on :click, '.destroy' do
+    @todo.destroy
+  end
+
   def initialize(todo)
+    super
     @todo = todo
     @todo.on(:change) { puts 'todoview change' }
     @todo.on(:destroy) { remove }
     @todo.on(:visible) { puts 'todoview visible' }
-
-    @element = Element.new :li
-    @element.on(:dblclick, 'label') { edit }
-    @element.on(:keypress, '.edit') { |e| update_on_enter e }
-    @element.on(:click, '.destroy') { clear }
   end
 
   def clear
@@ -32,11 +42,6 @@ class TodoView
     @element.remove_class 'editing'
   end
 
-  def edit
-    @element.add_class 'editing'
-    @input.focus
-  end
-
   def remove
     @element.remove
   end
@@ -54,7 +59,7 @@ class TodoView
     @input = @element.find '.edit'
   end
 
-  def update_on_enter(e)
-    close if e.which == ENTER_KEY
+  def tag_name
+    :li
   end
 end

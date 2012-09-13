@@ -1,20 +1,19 @@
-class AppView
-  ENTER_KEY = 13
+require 'vendor/view'
 
-  def initialize
-    @element = Document['#todoapp']
-    @input = Document['#new-todo']
+class AppView < View
 
-    @element.on(:keypress, '#new-todo') { |e| create_on_enter e }
-    # @element.on(:click, '#clear-completed') { create_on_enter }
-    # @element.on(:click, '#toggle-all') { create_on_enter }
-  end
+  element '#todoapp'
 
-  def create_on_enter(evt)
-    if evt.which == ENTER_KEY and !@input.value.strip.empty?
+  on :keypress, '#new-todo' do |e|
+    if e.which == 13 and !@input.value.strip.empty?
       App.create_todo title: @input.value.strip, completed: false
       @input.value = ''
     end
+  end
+
+  def initialize
+    super
+    @input = Document['#new-todo']
   end
 
   def add_todo(todo)

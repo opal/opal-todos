@@ -1,13 +1,8 @@
-require 'vendor/eventable'
+require 'vendor/model'
 
-class Todo
-  include Eventable
-
-  attr_accessor :title, :completed
-
-  def initialize(attributes={})
-    attributes.each { |name, val| __send__ "#{name}=", val }
-  end
+class Todo < Model
+  attribute :title
+  attribute :completed
 
   def destroy
     trigger :destroy

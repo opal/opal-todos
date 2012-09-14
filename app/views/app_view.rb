@@ -16,6 +16,10 @@ class AppView < View
     Todo.each { |t| t.update_attribute(:completed, !t.completed) }
   end
 
+  on :click, '#clear-completed' do
+    Todo.completed.each { |t| t.destroy }
+  end
+
   def initialize
     super
     @input = Document['#new-todo']

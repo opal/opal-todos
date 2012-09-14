@@ -32,6 +32,8 @@ class TodoView < View
     @todo = todo
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
+
+    @template = Templates['templates/todo']
   end
 
   def clear
@@ -49,15 +51,7 @@ class TodoView < View
   end
 
   def render
-    @element.html = <<-HTML
-      <div class="view">
-        <input class="toggle" type="checkbox" #{@todo.completed && 'checked'}>
-        <label>#{@todo.title}</label>
-        <button class="destroy"></button>
-      </div>
-      <input class="edit" value="#{@todo.title}">
-    HTML
-
+    @element.html = @template.render self
     @input = @element.find '.edit'
   end
 

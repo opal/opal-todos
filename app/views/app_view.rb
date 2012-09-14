@@ -28,6 +28,8 @@ class AppView < View
     Todo.on(:create) { |todo| add_todo(todo); render }
     Todo.on(:update) { render }
     Todo.on(:destroy) { render }
+
+    @template = Templates['templates/footer']
   end
 
   def add_todo(todo)
@@ -37,19 +39,9 @@ class AppView < View
   end
 
   def render
-    completed = Todo.completed.size
-    active = Todo.active.size
+    @completed = Todo.completed.size
+    @active = Todo.active.size
 
-    @footer.html = <<-HTML
-      <span id="todo-count">
-        <strong>#{active}</strong> #{active == 1 ? 'item' : 'items'} left
-      </span>
-  		<ul id="filters">
-  			<li><a class="selected" href="#/">All</a></li>
-  			<li><a href="#/active">Active</a></li>
-  			<li><a href="#/completed">Completed</a></li>
-  		</ul>
-      #{completed == 0 ? '' : "<button id=\"clear-completed\">Clear completed (#{completed})</button>"}
-    HTML
+    @footer.html = @template.render self
   end
 end

@@ -31,7 +31,7 @@ class TodoView < Vienna::View
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
 
-    @template = ERB['templates/todo']
+    @template = TEMPLATES['todo']
   end
 
   def clear
@@ -49,7 +49,7 @@ class TodoView < Vienna::View
   end
 
   def render
-    @element.html = @template.render self
+    @element.html = instance_eval(&@template)
     @input = @element.find '.edit'
   end
 

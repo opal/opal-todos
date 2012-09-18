@@ -27,7 +27,7 @@ class AppView < Vienna::View
     Todo.on(:update) { render }
     Todo.on(:destroy) { render }
 
-    @template = ERB['templates/footer']
+    @template = TEMPLATES['footer']
   end
 
   def add_todo(todo)
@@ -40,6 +40,6 @@ class AppView < Vienna::View
     @completed = Todo.completed.size
     @active = Todo.active.size
 
-    @footer.html = @template.render self
+    @footer.html = instance_eval(&@template)
   end
 end

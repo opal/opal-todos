@@ -1,6 +1,4 @@
-require 'vendor/model'
-
-class Todo < Model
+class Todo < Vienna::Model
   attribute :title
   attribute :completed
 

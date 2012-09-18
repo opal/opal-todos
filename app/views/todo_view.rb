@@ -1,6 +1,4 @@
-require 'vendor/view'
-
-class TodoView < View
+class TodoView < Vienna::View
 
   attr_reader :element
 
@@ -33,7 +31,7 @@ class TodoView < View
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
 
-    @template = Templates['templates/todo']
+    @template = ERB['templates/todo']
   end
 
   def clear

@@ -1,6 +1,4 @@
-require 'vendor/view'
-
-class AppView < View
+class AppView < Vienna::View
 
   element '#todoapp'
 
@@ -29,7 +27,7 @@ class AppView < View
     Todo.on(:update) { render }
     Todo.on(:destroy) { render }
 
-    @template = Templates['templates/footer']
+    @template = ERB['templates/footer']
   end
 
   def add_todo(todo)

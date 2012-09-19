@@ -21,6 +21,5 @@ end
 
 def build_erb(name)
   path = "app/templates/#{name}.erb"
-  src = Opal::ERB.compile(File.read(path), name)
-  "// #{ path }\n#{ Opal.parse src }\n"
+  Opal::ERB.parse File.read(path), name
 end

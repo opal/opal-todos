@@ -23,3 +23,5 @@ def build_erb(name)
   path = "app/templates/#{name}.erb"
   Opal::ERB.parse File.read(path), name
 end
+
+task :default => :opal

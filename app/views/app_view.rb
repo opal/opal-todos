@@ -28,6 +28,12 @@ class AppView < Vienna::View
     Todo.on(:destroy) { render }
 
     @template = Template['footer']
+
+    Todo.reset!
+    Todo.each do |todo|
+      add_todo(todo)
+    end
+    render
   end
 
   def add_todo(todo)

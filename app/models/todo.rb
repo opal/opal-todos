@@ -1,4 +1,8 @@
-class Todo < Vienna::Model
+require 'local_storage'
+
+class Todo < LocalStorage::Model
+  @storage_name = 'todos'
+
   attribute :title
   attribute :completed
 

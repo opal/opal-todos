@@ -1,22 +1,20 @@
 require 'bundler/setup'
-require 'fileutils'
-require 'opal'
+require 'opal/rake_task'
 require 'opal-erb'
 
-desc "Build opal runtime, dependencies and todos app"
-task :opal do
-  build_to 'opal',        Opal.runtime
-  build_to 'opal-jquery', Opal.build_gem('opal-jquery')
-  build_to 'vienna',      Opal.build_gem('vienna')
-  build_to 'todos',       Opal.build_files('app')
-
-  build_to 'templates',   build_erb('footer')+ build_erb('todo')
+Opal::RakeTask.new do |t|
+  t.name = 'todos'
+  t.files = 'app'
+  t.dependencies = %w[opal-jquery vienna]
 end
 
-def build_to(name, code)
-  FileUtils.mkdir_p 'build'
-  puts " * build/#{name}.js"
-  File.open("build/#{name}.js", 'w+') { |o| o.puts code }
+desc "Build templates"
+task :templates do
+  puts " * build/templates.js"
+  File.open("build/templates.js", "w+") do |o|
+    o.puts build_erb('footer')
+    o.puts build_erb('todo')
+  end
 end
 
 def build_erb(name)
@@ -24,4 +22,4 @@ def build_erb(name)
   Opal::ERB.parse File.read(path), name
 end
 
-task :default => :opal
+task :default => [:opal, :templates]

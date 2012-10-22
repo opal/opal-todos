@@ -8,7 +8,7 @@ A very simple port of todomvc (specifically based on backbone version).
 
 Get dependencies:
 
-    $ bundle insteall
+    $ bundle install
 
 Build opal, opal-jquery and todos:
 

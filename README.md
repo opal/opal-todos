@@ -12,6 +12,6 @@ Get dependencies:
 
 Build opal, opal-jquery and todos:
 
-    $ rake opal
+    $ rake
 
 Open `index.html` in the browser.

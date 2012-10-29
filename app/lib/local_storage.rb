@@ -1,39 +1,40 @@
 require 'lib/model'
 
-module LocalStorage
-  class Model < Vienna::Model
-
-    def save
-      self.class.sync!
-      super
+module Vienna
+  module LocalStorage
+    def self.included(cls)
+      cls.sync = Sync.new(cls)
     end
 
-    def to_native
-      @attributes.to_native
-    end
+    class Sync
+      def initialize(model)
+        @model = model
+      end
 
-    def self.create(attrs={})
-      model = super(attrs)
-      sync!
-      model
-    end
+      def create(model)
+        sync!
+      end
 
-    def self.destroy(model)
-      super(model)
-      sync!
-    end
+      def delete(model)
+        sync!
+      end
 
-    def self.sync!
-      data = (@_models || []).map{|m| m.to_native}
-      `localStorage[#{plural_name}] = JSON.stringify(#{data})`
-    end
+      def update(model)
+        sync!
+      end
 
-    def self.reset!
-      if data = `localStorage[#{plural_name}] || nil`
-        data = JSON.parse(data)
-        @_models = data.map { |attrs| new(attrs) }
-      else
-        @_models = super
+      def reset!(&block)
+        models = []
+
+        if data = ::LocalStorage[@model.plural_name]
+          models = JSON.parse(data).map { |attrs| @model.new(attrs) }
+        end
+
+        block.call models
+      end
+
+      def sync!
+        ::LocalStorage[@model.plural_name] = @model.models.to_json
       end
     end
   end

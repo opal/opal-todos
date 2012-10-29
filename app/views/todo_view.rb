@@ -20,9 +20,7 @@ class TodoView < Vienna::View
   end
 
   on :click, '.toggle' do
-    puts "toggling"
     @todo.update_attribute :completed, !@todo.completed
-    puts @todo.completed
   end
 
   def initialize(todo)

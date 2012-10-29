@@ -1,6 +1,8 @@
 require 'local_storage'
 
-class Todo < LocalStorage::Model
+class Todo < Vienna::Model
+  include Vienna::LocalStorage
+
   attribute :title
   attribute :completed
 

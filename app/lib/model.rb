@@ -1,15 +1,16 @@
 module Vienna
   class Model
+    include Eventable
+    extend Eventable
+    extend Enumerable
 
-    def self.sync=(sync)
-      @sync = sync
+    def self.attribute(name)
+      define_method(name) { @attributes[name] }
+      define_method("#{name}=") { |val| @attributes[name] = val }
     end
 
-    def self.reset!
-      @_models = []
-      @sync.reset! do |models|
-        @_models = models
-      end if @sync
+    def self.inherited(base)
+      base.reset!
     end
 
     def self.models
@@ -23,25 +24,20 @@ module Vienna
     def self.create(attrs={})
       model = self.new attrs
       @_models << model
-      @sync.create model if @sync
+      create!
       trigger :create, model
       model
     end
 
     def self.destroy(model)
       @_models.delete model
-      @sync.delete model if @sync
+      destroy!
       trigger :destroy, self
     end
 
     def self.update(model)
-      @sync.update model if @sync
+      update!
       trigger :update, self
-    end
-
-    def update
-      self.class.update self
-      trigger :update
     end
 
     def self.save(model)
@@ -49,9 +45,53 @@ module Vienna
       # @sync.
     end
 
+    def self.each(&block)
+      @_models.each { |m| block.call m }
+    end
+    
+    def initialize(attributes={})
+      @attributes = {}
+
+      attributes.each do |name, val|
+        __send__ "#{name}=", val if respond_to? "#{name}="
+      end
+    end
+
+    def [](name)
+      @attributes[name]
+    end
+
+    def []=(name, value)
+      @attributes[name] = value
+    end
+
+    def save
+      update
+      trigger :save
+    end
+
+    def update_attribute(name, value)
+      @attributes[name] = value
+      save
+    end
+
+    ##
+    # private methods..
+
+    def destroy
+      self.class.destroy self
+      trigger :destroy
+    end
+
+    def update
+      self.class.update self
+      trigger :update
+    end
+
     def save
       self.class.save self
-      super
+      update
+      trigger :save
     end
 
     def to_json

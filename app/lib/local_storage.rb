@@ -1,41 +1,40 @@
-require 'lib/model'
-
 module Vienna
+
   module LocalStorage
-    def self.included(cls)
-      cls.sync = Sync.new(cls)
-    end
 
-    class Sync
-      def initialize(model)
-        @model = model
-      end
-
-      def create(model)
+    module ClassMethods
+      def create!(model)
         sync!
       end
 
-      def delete(model)
+      def destroy!(model)
         sync!
       end
 
-      def update(model)
+      def update!(model)
         sync!
+      end
+
+      def read!(model)
+        # ...
       end
 
       def reset!(&block)
-        models = []
-
-        if data = ::LocalStorage[@model.plural_name]
-          models = JSON.parse(data).map { |attrs| @model.new(attrs) }
+        if data = ::LocalStorage[plural_name]
+          @_models = JSON.parse(data).map { |attrs| new(attrs) }
+        else
+          @_models = []
         end
-
-        block.call models
       end
 
       def sync!
-        ::LocalStorage[@model.plural_name] = @model.models.to_json
+        ::LocalStorage[plural_name] = @_models.to_json
       end
+    end
+
+    def self.included(base)
+      base.extend ClassMethods
+      base.reset!
     end
   end
 end

@@ -2,7 +2,7 @@
 
 **not finished yet**
 
-A very simple port of todomvc (specifically based on backbone version).
+A very simple port of [TodoMVC](http://todomvc.com) (specifically based on backbone version).
 
 ## Running
 

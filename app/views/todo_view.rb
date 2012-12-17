@@ -29,7 +29,7 @@ class TodoView < Vienna::View
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
 
-    @template = Template['todo']
+    @template = ERB['todo']
   end
 
   def clear

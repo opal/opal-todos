@@ -27,7 +27,7 @@ class AppView < Vienna::View
     Todo.on(:update) { render }
     Todo.on(:destroy) { render }
 
-    @template = Template['footer']
+    @template = ERB['footer']
 
     Todo.reset!
     Todo.each do |todo|

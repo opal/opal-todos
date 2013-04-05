@@ -10,8 +10,8 @@ Get dependencies:
 
     $ bundle install
 
-Build opal, opal-jquery and todos:
+Run the sprockets based server for auto-compiling:
 
-    $ rake
+    $ bundle exec rackup
 
-Open `index.html` in the browser.
+Open `http://localhost:9292` in the browser.

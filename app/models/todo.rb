@@ -1,4 +1,4 @@
-require 'local_storage'
+require 'lib/local_storage'
 
 class Todo < Vienna::Model
   include Vienna::LocalStorage
@@ -16,5 +16,9 @@ class Todo < Vienna::Model
   # @return [Array<Todo>]
   def self.completed
     select { |todo| todo.completed }
+  end
+
+  def to_json
+    { title: @title, completed: @completed }.to_json
   end
 end

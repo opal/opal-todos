@@ -5,7 +5,7 @@ module Vienna
     extend Enumerable
 
     def self.attribute(name)
-      string name
+      attr_accessor name
     end
 
     def self.inherited(base)
@@ -54,7 +54,7 @@ module Vienna
     end
 
     def update_attribute(name, value)
-      @attributes[name] = value
+      __send__ "#{name}=", value
       save
     end
 
@@ -78,7 +78,7 @@ module Vienna
     end
 
     def to_json
-      @attributes.to_json
+      nil.to_json
     end
   end
 end

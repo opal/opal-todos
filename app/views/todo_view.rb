@@ -1,7 +1,5 @@
 class TodoView < Vienna::View
 
-  attr_reader :element
-
   on :dblclick, 'label' do
     @element.add_class 'editing'
     @input.focus
@@ -24,12 +22,12 @@ class TodoView < Vienna::View
   end
 
   def initialize(todo)
-    super
+    self.element
     @todo = todo
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
 
-    @template = ERB['todo']
+    @template = Template['todo']
   end
 
   def clear
@@ -43,12 +41,12 @@ class TodoView < Vienna::View
   end
 
   def remove
-    @element.remove
+    element.remove
   end
 
   def render
-    @element.html = @template.render(self)
-    @input = @element.find '.edit'
+    element.html = @template.render(self)
+    @input = element.find '.edit'
   end
 
   def tag_name

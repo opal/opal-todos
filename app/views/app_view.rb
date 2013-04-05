@@ -19,15 +19,15 @@ class AppView < Vienna::View
   end
 
   def initialize
-    super
-    @input = Document['#new-todo']
-    @footer = Document['#footer']
+    self.element # create element
+    @input = Element.find '#new-todo'
+    @footer = Element.find '#footer'
 
     Todo.on(:create) { |todo| add_todo(todo); render }
     Todo.on(:update) { render }
     Todo.on(:destroy) { render }
 
-    @template = ERB['footer']
+    @template = Template['footer']
 
     Todo.reset!
     Todo.each do |todo|
@@ -39,7 +39,7 @@ class AppView < Vienna::View
   def add_todo(todo)
     view = TodoView.new todo
     view.render
-    Document['#todo-list'] << view.element
+    Element.find('#todo-list') << view.element
   end
 
   def render

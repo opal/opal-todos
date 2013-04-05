@@ -1,4 +1,5 @@
 require 'opal'
+require 'jquery'
 require 'opal-jquery'
 require 'opal-erb'
 require 'vienna'

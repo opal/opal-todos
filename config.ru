@@ -5,6 +5,7 @@ require 'opal-sprockets'
 
 run Opal::Server.new { |s|
   s.append_path 'app'
+  s.append_path 'vendor'
 
   s.index_path = 'index.html.erb'
   s.debug = true

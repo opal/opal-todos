@@ -4,14 +4,6 @@ module Vienna
     extend Eventable
     extend Enumerable
 
-    def self.attribute(name)
-      attr_accessor name
-    end
-
-    def self.inherited(base)
-      base.reset!
-    end
-
     def self.models
       @_models
     end
@@ -75,10 +67,6 @@ module Vienna
       self.class.save self
       update
       trigger :save
-    end
-
-    def to_json
-      nil.to_json
     end
   end
 end

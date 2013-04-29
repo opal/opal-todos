@@ -1,7 +1,25 @@
-require 'lib/local_storage'
+require 'vienna/local_storage'
 
 class Todo < Vienna::Model
   include Vienna::LocalStorage
+  include Vienna::Eventable
+  extend Vienna::Eventable
+  extend Enumerable
+
+  def self.create attrs = {}
+    model = self.new attrs
+    model.save
+    model
+  end
+
+  def self.plural_name
+    @plural_name ||= "#{name.downcase}s"
+  end
+
+  def update attrs
+    self.attributes = attrs
+    save
+  end
 
   attributes :title, :completed
 

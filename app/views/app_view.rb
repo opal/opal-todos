@@ -11,7 +11,7 @@ class AppView < Vienna::View
   end
 
   on :click, '#toggle-all' do
-    Todo.each { |t| t.update_attribute(:completed, !t.completed) }
+    Todo.each { |t| t.update(:completed => !t.completed) }
   end
 
   on :click, '#clear-completed' do

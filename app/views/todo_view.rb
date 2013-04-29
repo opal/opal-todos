@@ -18,7 +18,7 @@ class TodoView < Vienna::View
   end
 
   on :click, '.toggle' do
-    @todo.update_attribute :completed, !@todo.completed
+    @todo.update :completed => !@todo.completed
   end
 
   def initialize(todo)
@@ -37,7 +37,7 @@ class TodoView < Vienna::View
   def finish_editing
     value = @input.value.strip
     @element.remove_class 'editing'
-    value.empty? ? clear : @todo.update_attribute(:title, value)
+    value.empty? ? clear : @todo.update(:title => value)
   end
 
   def remove

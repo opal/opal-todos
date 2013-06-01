@@ -1,7 +1,7 @@
 require 'opal'
 require 'jquery'
 require 'opal-jquery'
-require 'opal-erb'
+require 'erb'
 require 'vienna'
 
 require 'views/app_view'

@@ -11,7 +11,7 @@ class AppView < Vienna::View
   end
 
   on :click, '#toggle-all' do
-    Todo.each { |t| t.update(:completed => !t.completed) }
+    Todo.all.each { |t| t.update(:completed => !t.completed) }
   end
 
   on :click, '#clear-completed' do
@@ -30,7 +30,7 @@ class AppView < Vienna::View
     @template = Template['footer']
 
     Todo.reset!
-    Todo.each do |todo|
+    Todo.all.each do |todo|
       add_todo(todo)
     end
     render

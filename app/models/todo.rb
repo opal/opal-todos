@@ -1,34 +1,17 @@
-require 'vienna/local_storage'
+require 'vienna/adapters/local'
 
 class Todo < Vienna::Model
-  include Vienna::LocalStorage
-
-  def self.create attrs = {}
-    model = self.new attrs
-    model.save
-    model
-  end
-
-  def self.plural_name
-    @plural_name ||= "#{name.downcase}s"
-  end
-
-  def update attrs
-    self.attributes = attrs
-    save
-  end
+  adapter Vienna::LocalAdapter
 
   attributes :title, :completed
 
   # All active (not completed) todos
-  # @return [Array<Todo>]
   def self.active
-    all.select { |todo| !todo.completed }
+    all.reject(&:completed)
   end
 
   # All completed todos
-  # @return [Array<Todo>]
   def self.completed
-    all.select { |todo| todo.completed }
+    all.select(&:completed)
   end
 end

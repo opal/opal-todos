@@ -29,10 +29,10 @@ class AppView < Vienna::View
 
     @template = Template['footer']
 
-    Todo.reset!
-    Todo.all.each do |todo|
-      add_todo(todo)
+    Todo.adapter.find_all(Todo) do |models|
+      models.each { |m| add_todo m }
     end
+
     render
   end
 

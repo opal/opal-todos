@@ -1,5 +1,4 @@
 class AppView < Vienna::View
-
   element '#todoapp'
 
   on :keypress, '#new-todo' do |e|
@@ -19,7 +18,6 @@ class AppView < Vienna::View
   end
 
   def initialize
-    self.element # create element
     @input = Element.find '#new-todo'
     @footer = Element.find '#footer'
 
@@ -33,7 +31,8 @@ class AppView < Vienna::View
       models.each { |m| add_todo m }
     end
 
-    render
+    self.element
+    self.render
   end
 
   def add_todo(todo)

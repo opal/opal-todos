@@ -1,4 +1,7 @@
-class TodoView < Vienna::View
+require 'vienna/template_view'
+
+class TodoView < Vienna::TemplateView
+  template :todo
 
   on :dblclick, 'label' do
     @element.add_class 'editing'
@@ -22,12 +25,9 @@ class TodoView < Vienna::View
   end
 
   def initialize(todo)
-    self.element
     @todo = todo
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
-
-    @template = Template['todo']
   end
 
   def clear
@@ -45,7 +45,7 @@ class TodoView < Vienna::View
   end
 
   def render
-    element.html = @template.render(self)
+    super
     @input = element.find '.edit'
   end
 

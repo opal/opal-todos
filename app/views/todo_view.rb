@@ -28,6 +28,11 @@ class TodoView < Vienna::TemplateView
     @todo = todo
     @todo.on(:update) { render }
     @todo.on(:destroy) { remove }
+    @todo.on(:filter) { |filter| apply_filter filter }
+  end
+
+  def apply_filter(filter)
+    puts "need to apply #{filter} for #{@todo}"
   end
 
   def clear

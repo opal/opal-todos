@@ -12,35 +12,27 @@ require 'templates/todo'
 
 require 'models/todo'
 
-module Vienna
-  class << self
-    attr_accessor :application
+class Application
+  def run
+    @app_view = AppView.new
+
+    router.update
   end
 
-  class Application
-    class << self
-      def inherited(base)
-        Vienna.application ||= base.instance
-      end
-
-      def method_missing(sym, *args)
-        instance.__send__(sym, *args)
-      end
-
-      def instance
-        @instance ||= self.new
+  def router
+    @router ||= Vienna::Router.new.tap do |router|
+      router.route('/:filter') do |params|
+        apply_filter params[:filter]
       end
     end
   end
-end
 
-class Application < Vienna::Application
-  def run
-    @app_view = AppView.new
+  def apply_filter(filter)
+    Todo.all.each { |t| t.trigger :filter, filter }
   end
 end
 
 # when document is ready, lets go!
 Document.ready? do
-  Application.run
+  Application.new.run
 end

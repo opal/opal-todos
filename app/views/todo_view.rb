@@ -32,7 +32,13 @@ class TodoView < Vienna::TemplateView
   end
 
   def apply_filter(filter)
-    puts "need to apply #{filter} for #{@todo}"
+    element.toggle_class :hidden, hidden?(filter)
+  end
+
+  def hidden?(filter)
+    completed = @todo.completed
+
+    !completed && filter == 'completed' or completed && filter == 'active'
   end
 
   def clear

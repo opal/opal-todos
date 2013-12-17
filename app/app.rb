@@ -1,7 +1,7 @@
 require 'opal'
 require 'jquery'
 require 'opal-jquery'
-require 'erb'
+require 'opal-haml'
 require 'vienna'
 
 require 'views/app_view'
@@ -15,7 +15,6 @@ require 'models/todo'
 class Application
   def run
     @app_view = AppView.new
-
     router.update
   end
 

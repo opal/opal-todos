@@ -47,4 +47,13 @@ class AppView < Vienna::View
 
     @footer.html = @template.render(self)
   end
+
+  def todo_count
+    prefix = @active == 1 ? 'item' : 'items'
+    prefix + " left"
+  end
+
+  def show_completed?
+    @completed > 0
+  end
 end

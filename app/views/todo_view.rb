@@ -36,7 +36,7 @@ class TodoView < Vienna::TemplateView
   end
 
   def hidden?(filter)
-    completed = @todo.completed
+    completed = @todo.completed?
 
     !completed && filter == 'completed' or completed && filter == 'active'
   end

@@ -7,5 +7,5 @@ run Opal::Server.new { |s|
 
   s.index_path = 'index.html.erb'
   s.debug = true
-  s.main = 'app'
+  s.main = 'application'
 }

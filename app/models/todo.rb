@@ -5,6 +5,8 @@ class Todo < Vienna::Model
 
   attributes :title, :completed
 
+  alias completed? completed
+
   # All active (not completed) todos
   def self.active
     all.reject(&:completed)

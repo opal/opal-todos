@@ -28,6 +28,7 @@ class Application
 
   def apply_filter(filter)
     Todo.all.each { |t| t.trigger :filter, filter }
+    @app_view.show_filter filter
   end
 end
 

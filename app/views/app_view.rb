@@ -25,8 +25,6 @@ class AppView < Vienna::View
     Todo.on(:update) { render }
     Todo.on(:destroy) { render }
 
-    @template = Template['footer']
-
     Todo.adapter.find_all(Todo) do |models|
       models.each { |m| add_todo m }
     end
@@ -45,7 +43,17 @@ class AppView < Vienna::View
     @completed = Todo.completed.size
     @active = Todo.active.size
 
-    @footer.html = @template.render(self)
+    @footer.html = template.render(self)
+  end
+
+  def show_filter(filter)
+    links = @footer.find 'li a'
+    links.remove_class 'selected'
+    links.filter("a[href=\"#/#{filter}\"]").add_class 'selected'
+  end
+
+  def template
+    Template['footer']
   end
 
   def todo_count

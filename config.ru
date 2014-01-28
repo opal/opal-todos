@@ -7,4 +7,5 @@ run Opal::Server.new { |s|
 
   s.debug = true
   s.main = 'application'
+  s.index_path = 'index.html.haml'
 }

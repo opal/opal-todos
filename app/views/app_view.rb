@@ -10,7 +10,7 @@ class AppView < Vienna::View
   end
 
   on :click, '#toggle-all' do
-    Todo.all.each { |t| t.update(:completed => !t.completed) }
+    Todo.all.each { |t| t.update(completed: !t.completed) }
   end
 
   on :click, '#clear-completed' do
@@ -23,7 +23,7 @@ class AppView < Vienna::View
 
     Todo.on(:create)  { |todo| add_todo(todo); render }
     Todo.on(:update)  { render }
-    Todo.on(:destroy) { |todo| render }
+    Todo.on(:destroy) { render }
 
     Todo.adapter.find_all(Todo) do |models|
       models.each { |m| add_todo m }

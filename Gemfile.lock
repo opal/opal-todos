@@ -1,31 +1,40 @@
 GIT
   remote: git://github.com/opal/opal-haml.git
-  revision: 0bdd3eb53ec03d380e14440a94f779ed7c3741e1
+  revision: 385e0d9d47eb94d03a983dec5821b1b3b1bbdd8d
   specs:
-    opal-haml (0.2.0)
+    opal-haml (0.3.0)
       haml
       opal (>= 0.5.0, < 1.0.0)
 
 GIT
   remote: git://github.com/opal/opal-jquery.git
-  revision: 1814202085f168176231b877b2b7a967b75b0726
+  revision: 6d864fb0dfa0a5cd399f1a46bfa2e24fcb257768
   specs:
-    opal-jquery (0.1.2)
-      opal (>= 0.5.0, < 1.0.0)
+    opal-jquery (0.3.0)
+      opal (~> 0.7.0)
+
+GIT
+  remote: git://github.com/opal/opal-rspec.git
+  revision: ef2a7b0b969c06617ebbf3f17fc73d7af2363f94
+  specs:
+    opal-rspec (0.4.1)
+      opal (~> 0.7.0)
 
 GIT
   remote: git://github.com/opal/opal.git
-  revision: 85220f32136c74ac93f1cb721462324a3423cf44
+  revision: 2093db494c168263eb65b0a0d7c889c2d80e07c4
   specs:
-    opal (0.6.0)
-      source_map
-      sprockets
+    opal (0.7.1)
+      hike (~> 1.2)
+      sourcemap (~> 0.1.0)
+      sprockets (>= 2.2.3, < 4.0.0)
+      tilt (~> 1.4)
 
 GIT
   remote: git://github.com/opal/vienna.git
-  revision: 709d1475b4302346cb779dc39d1432638119bbbe
+  revision: 723bfcdee95a2dd6f41fb6947872ee17f765934d
   specs:
-    vienna (0.0.2)
+    opal-vienna (0.7.0)
       opal (>= 0.5.0, < 1.0.0)
       opal-activesupport
       opal-jquery
@@ -33,30 +42,26 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    daemons (1.1.9)
-    eventmachine (1.0.3)
-    haml (4.0.5)
+    daemons (1.2.1)
+    eventmachine (1.0.7)
+    haml (4.0.6)
       tilt
     hike (1.2.3)
-    json (1.8.1)
-    multi_json (1.8.4)
-    opal-activesupport (0.0.5)
-      opal
-    opal-rspec (0.3.0.beta2)
-      opal (>= 0.6.0, < 1.0.0)
-    rack (1.5.2)
-    rake (10.1.1)
-    source_map (3.0.1)
-      json
-    sprockets (2.10.1)
+    multi_json (1.11.0)
+    opal-activesupport (0.1.0)
+      opal (>= 0.5.0, < 1.0.0)
+    rack (1.6.0)
+    rake (10.4.2)
+    sourcemap (0.1.1)
+    sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    thin (1.6.2)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.0.0)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
     tilt (1.4.1)
 
 PLATFORMS
@@ -66,7 +71,7 @@ DEPENDENCIES
   opal!
   opal-haml!
   opal-jquery!
-  opal-rspec (= 0.3.0.beta2)
+  opal-rspec!
+  opal-vienna!
   rake
   thin
-  vienna!

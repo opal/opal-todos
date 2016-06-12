@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'opal',           :github => 'opal/opal'
-gem 'opal-jquery',    :github => 'opal/opal-jquery'
-gem 'vienna',         :github => 'opal/vienna'
-gem 'opal-haml',      :github => 'opal/opal-haml'
-gem 'opal-rspec',     '0.3.0.beta2'
+gem 'opal-jquery',    "~> 0.4"
+gem 'opal-vienna',    "~> 0.7"
+gem 'opal-haml',      "~> 0.4"
+gem 'opal-rspec',     '~> 0.5'
 gem 'thin'

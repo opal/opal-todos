@@ -21,14 +21,14 @@ class TodoView < Vienna::TemplateView
   end
 
   on :click, '.toggle' do
-    @todo.update :completed => !@todo.completed
+    @todo.update completed: !@todo.completed
   end
 
   def initialize(todo)
     @todo = todo
-    @todo.on(:update) { render }
+    @todo.on(:update)  { render }
     @todo.on(:destroy) { remove }
-    @todo.on(:filter) { |filter| apply_filter filter }
+    @todo.on(:filter)  { |filter| apply_filter filter }
   end
 
   def apply_filter(filter)
@@ -48,7 +48,7 @@ class TodoView < Vienna::TemplateView
   def finish_editing
     value = @input.value.strip
     @element.remove_class 'editing'
-    value.empty? ? clear : @todo.update(:title => value)
+    value.empty? ? clear : @todo.update(title: value)
   end
 
   def remove

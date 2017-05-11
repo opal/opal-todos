@@ -10,7 +10,7 @@ class AppView < Vienna::View
   end
 
   on :click, '#toggle-all' do
-    Todo.all.each { |t| t.update(:completed => !t.completed) }
+    Todo.all.each { |t| t.update(completed: !t.completed) }
   end
 
   on :click, '#clear-completed' do
@@ -18,11 +18,11 @@ class AppView < Vienna::View
   end
 
   def initialize
-    @input = Element.find '#new-todo'
+    @input  = Element.find '#new-todo'
     @footer = Element.find '#footer'
 
-    Todo.on(:create) { |todo| add_todo(todo); render }
-    Todo.on(:update) { render }
+    Todo.on(:create)  { |todo| add_todo(todo); render }
+    Todo.on(:update)  { render }
     Todo.on(:destroy) { render }
 
     Todo.adapter.find_all(Todo) do |models|
@@ -41,7 +41,7 @@ class AppView < Vienna::View
 
   def render
     @completed = Todo.completed.size
-    @active = Todo.active.size
+    @active    = Todo.active.size
 
     @footer.html = template.render(self)
   end
@@ -58,7 +58,7 @@ class AppView < Vienna::View
 
   def todo_count
     prefix = @active == 1 ? 'item' : 'items'
-    prefix + " left"
+    prefix + ' left'
   end
 
   def show_completed?

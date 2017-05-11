@@ -18,6 +18,8 @@ $ bundle exec rackup
 
 Open `http://localhost:9292` in the browser.
 
+Note: Safari has issues related to Dropped Network Connections.  If you are experience issues try a different browser such as Chrome and Firefox
+
 ## Code Overview
 
 Opal comes with sprockets support built in, so using rack we can have an
